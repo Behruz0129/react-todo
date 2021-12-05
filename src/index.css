@@ -7,9 +7,11 @@
 
 *::-moz-selection {
 	background: #3d4ac0;
+	color: white;
 }
 *::selection {
 	background: #3d4ac0;
+	color: white;
 }
 
 * {
@@ -37,16 +39,31 @@ body {
 	color: #ffffff;
 }
 
+.header .left {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.header .left img {
+	width: 70px;
+}
+
+.header .left h1 {
+	margin-left: 20px;
+}
+
 .header .right {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
-.header .link {
+.header a.link {
 	margin-right: 50px;
-	color: #3d4ac0;
+	color: #eeeeee;
 	font-size: 20px;
+	text-decoration: none;
 }
 
 .header h1 {
@@ -82,6 +99,92 @@ body {
 	width: 100%;
 }
 
+.add-form {
+	margin-top: 60px;
+	display: flex;
+	font-size: 30px;
+}
+
+.add-task {
+	margin-top: 10px;
+	flex: 1;
+	height: 50px;
+	outline: none;
+	margin-right: 10px;
+	border: none;
+	padding: 5px 20px;
+	border: 2px solid #3ce7b8;
+	background: none;
+	color: #3ce7b8;
+	border-radius: 15px;
+}
+
+.set-day-time {
+	margin-top: 10px;
+	flex: 1;
+	height: 50px;
+	margin-right: 10px;
+	outline: none;
+	border: none;
+	padding: 5px 20px;
+	border: 2px solid #3ce7b8;
+	background: none;
+	color: #3ce7b8;
+	border-radius: 15px;
+}
+
+.ntf {
+	margin-top: 10px;
+	margin-right: 10px;
+	height: 50px;
+	width: 50px;
+	font-size: 25px;
+	outline: none;
+	border: none;
+	border: 2px solid #3ce7b8;
+	background: none;
+	color: #3ce7b8;
+	border-radius: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.25s ease-in-out;
+	cursor: pointer;
+}
+
+.add {
+	margin-top: 10px;
+	height: 50px;
+	width: 50px;
+	font-size: 25px;
+	outline: none;
+	border: none;
+	border: 2px solid #3ce7b8;
+	background: none;
+	color: #3ce7b8;
+	border-radius: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.25s ease-in-out;
+	cursor: pointer;
+}
+
+.add:hover,
+.ntf.active {
+	background: #3ce7b8;
+	color: #ffffff;
+}
+.add:active,
+.ntf:active,
+.icon-place:active {
+	transform: scale(0.9);
+}
+
+.tasks {
+	margin-top: 50px;
+}
+
 .task {
 	border: 3px solid #171617;
 	border-radius: 15px;
@@ -91,6 +194,7 @@ body {
 	align-items: center;
 	justify-content: space-between;
 	cursor: pointer;
+	word-break: break-all;
 }
 
 .text-place {
@@ -103,15 +207,22 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 30px;
-	height: 30px;
+	width: 50px;
+	height: 50px;
 	font-size: 30px;
-	color: #3dc094;
+	color: white;
+	transition: all 0.25s ease-in-out;
 	cursor: pointer;
 }
 
 .task.reminder {
-	border-left: 5px solid #cce4f9;
+	background: #171617;
+}
+
+.task.reminder .icon-place {
+	background: #252425;
+	color: #7b82c4;
+	border-radius: 15px;
 }
 
 .task h3 {
@@ -130,47 +241,106 @@ body {
 	color: #5e7079;
 }
 
-.no-tasks {
-	font-size: 24px;
-	color: #444444;
+.no-tasks h1 {
+	font-size: 36px;
+	color: #3ce7b8;
 }
 
-.add-form {
-	margin-bottom: 40px;
+.no-tasks p {
+	margin-top: 10px;
+	font-size: 18px;
+	color: lightgrey;
 }
 
-.form-control {
-	margin: 20px 0;
+.about {
+	margin-top: 70px;
 }
 
-.form-control label {
-	display: block;
-}
-
-.form-control input {
+.about img {
 	width: 100%;
-	height: 40px;
-	margin: 5px;
-	padding: 3px 7px;
-	font-size: 17px;
 }
 
-.form-control-check {
+.wrapper {
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
+	flex-direction: column;
+	width: 100%;
+	font-size: 1.2rem;
+	color: #9b9b9b;
 }
 
-.form-control-check label {
-	flex: 1;
+.wrapper .col-1,
+.wrapper .col-2 {
+	margin-top: 50px;
 }
 
-.form-control-check input {
-	flex: 2;
-	height: 20px;
+.wrapper .col-2 {
+	margin-bottom: 20px;
+}
+
+.wrapper .col-1 div div,
+.wrapper .col-2 div div {
+	margin-top: 15px;
+}
+
+.wrapper h1 {
+	color: #3ce7b8;
+}
+
+.wrapper .details {
+	margin-top: 30px;
+}
+
+.wrapper .subtitle {
+	color: white;
 }
 
 footer {
 	margin-top: 30px;
 	text-align: center;
+	color: #eeeeee;
+}
+
+footer p {
+	margin-top: 30px;
+}
+
+footer a {
+	color: #3ce7b8;
+}
+
+@media (max-width: 781px) {
+	html {
+		font-size: 80%;
+	}
+
+	.header .left img {
+		width: 50px;
+	}
+
+	.header .left h1 {
+		font-size: 1.5rem;
+	}
+
+	.header a.link {
+		font-size: 1.2rem;
+		margin-right: 20px;
+	}
+	.btn {
+		font-size: 1.2rem;
+		padding: 15px 20px;
+	}
+
+	.add-form {
+		flex-wrap: wrap;
+	}
+}
+
+@media (max-width: 540px) {
+	.header .left img {
+		display: none;
+	}
+	.header .left h1 {
+		margin-left: 0;
+	}
 }

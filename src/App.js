@@ -1,59 +1,110 @@
 // Components
 import Header from './components/Header';
-import Tasks from './components/Tasks';
+import Footer from './components/Footer';
+import About from './components/About';
+import Main from './components/Main';
 // Hooks
 import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
-	const [tasks, setTasks] = useState([
-		{
-			id: 1,
-			text: 'Read Bomdod Namaz',
-			day: 'Nov 11st at 5:40',
-			reminder: true,
-		},
-		{
-			id: 2,
-			text: 'Little Workout and Grabe a Coffee',
-			day: 'Nov 11st at 6:30',
-			reminder: false,
-		},
-		{
-			id: 3,
-			text: "Math Revising with Sardor's Video",
-			day: 'Nov 11st at 7:00',
-			reminder: true,
-		},
-		{
-			id: 4,
-			text: 'Do All Exercises on "Chiziqli va 2-darajali tenglamalar Sistemasi"',
-			day: 'Nov 11st at 9:00',
-			reminder: true,
-		},
-		{
-			id: 5,
-			text: 'Read Peshin Namaz',
-			day: 'Nov 11st at 1:00',
-			reminder: true,
-		},
-	]);
+	// Default Value
+	const [tasks, setTasks] = useState([]);
+
+	// Add Tasks Form
+	const [text, setText] = useState('');
+	const [day, setDay] = useState('');
+	const [reminder, setReminder] = useState(false);
+
+	const [currentID, setCurrentID] = useState('');
+	const [isEditing, setIsEditing] = useState(false);
+
+	// Add Task
+	const addTask = (task) => {
+		const id = Math.floor(Math.random() * 1000) + 1;
+		const newTask = { id, ...task };
+		setTasks([...tasks, newTask]);
+	};
 
 	// Delete Task
-
 	const deleteTask = (id) => {
-		setTasks(tasks.filter((task) => task.id !== id));
+		!isEditing && setTasks(tasks.filter((task) => task.id !== id));
+	};
+
+	// Toggle Reminder
+	const toggleReminder = (id) => {
+		!isEditing &&
+			setTasks(
+				tasks.map((task) =>
+					task.id === id ? { ...task, reminder: !task.reminder } : task
+				)
+			);
+	};
+
+	// Edit Task
+	const onEdit = (task) => {
+		setIsEditing(true);
+		setText(task.text);
+		setDay(task.day);
+		setReminder(task.reminder);
+		setCurrentID(task.id);
+	};
+
+	const editTask = (e, id) => {
+		e.preventDefault();
+
+		if (!text.trim()) {
+			alert('Please add a task');
+			return;
+		}
+
+		if (!day.trim()) {
+			alert('Please add a day');
+			return;
+		}
+
+		setTasks(
+			tasks.map((task) =>
+				task.id === id
+					? { ...task, reminder: reminder, text: text, day: day }
+					: task
+			)
+		);
+
+		setText('');
+		setDay('');
+		setReminder(false);
+		setIsEditing(false);
 	};
 
 	return (
 		<div className='container'>
 			<Header />
-			{tasks.length > 0 ? (
-				<Tasks tasks={tasks} onDelete={deleteTask} />
-			) : (
-				<p className='no-tasks'>
-					Whoops😥! <b>NO TASKS</b> to show. Please, <b>ADD</b> new one!
-				</p>
-			)}
+			<Routes>
+				<Route
+					path='/'
+					element={
+						<Main
+							addTask={addTask}
+							editTask={editTask}
+							text={text}
+							setText={setText}
+							day={day}
+							setDay={setDay}
+							reminder={reminder}
+							setReminder={setReminder}
+							currentID={currentID}
+							isEditing={isEditing}
+							tasks={tasks}
+							deleteTask={deleteTask}
+							toggleReminder={toggleReminder}
+							onEdit={onEdit}
+						/>
+					}
+				/>
+				<Route path='about' element={<About />} />
+			</Routes>
+			<Footer />
 		</div>
 	);
 }
